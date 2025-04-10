@@ -1,0 +1,118 @@
+package com.polyu.gppro;
+
+import android.os.Bundle;
+import android.os.Handler;
+import androidx.appcompat.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+import android.widget.TextView;
+
+public class IXAstage1 extends AppCompatActivity {
+    private int clickCount, correct = 0;
+    private TextView textmatches;
+    private Button firstButton, secondButton = null;
+    private boolean isProcessing = false;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main); // Ensure this matches your layout file
+        textmatches = findViewById(R.id.matches);
+        findViewById(R.id.restart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restartGame();
+            }
+        });
+
+        if (savedInstanceState != null) {
+            clickCount = savedInstanceState.getInt("clickCount", 0);
+            int firstButtonId = savedInstanceState.getInt("firstButtonId", -1);
+            if (firstButtonId != -1) {
+                firstButton = findViewById(firstButtonId);
+            }
+        }
+
+        int[] buttonIds = {R.id.button1, R.id.button2, R.id.button3, R.id.button4,
+                R.id.button5, R.id.button6, R.id.button7, R.id.button8};
+        for (int id : buttonIds) {
+            Button button = findViewById(id);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (correct == 4 || isProcessing) {
+                        return;
+                    }
+                    clickCount++;
+                    button.setVisibility(View.INVISIBLE);
+
+                    if (clickCount == 1) {
+                        firstButton = button;
+                    } else if (clickCount == 2) {
+                        isProcessing = true;
+                        new Handler().postDelayed(() -> {
+                            secondButton = button;
+                            if (isMatchingPair(firstButton.getId(), button.getId())) {
+                                Toast.makeText(IXAstage1.this, "Match Found!", Toast.LENGTH_SHORT).show();
+                                correct++;
+                                textmatches.setText("Matched pairs: " + correct);
+                                if (correct == 4) {
+                                    Toast.makeText(IXAstage1.this, "You win!", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(IXAstage1.this, "No Match! Try Again.", Toast.LENGTH_SHORT).show();
+                                buttonVisible(firstButton);
+                                buttonVisible(secondButton);
+                            }
+                            clickCount = 0;
+                            firstButton = null;
+                            secondButton = null;
+                            isProcessing = false;
+                        }, 400);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("clickCount", clickCount);
+        if (firstButton != null) {
+            outState.putInt("firstButtonId", firstButton.getId());
+        }
+    }
+
+    private boolean isMatchingPair(int firstId, int secondId) {
+        return (firstId == R.id.button1 && secondId == R.id.button6) ||
+                (firstId == R.id.button6 && secondId == R.id.button1) ||
+                (firstId == R.id.button2 && secondId == R.id.button8) ||
+                (firstId == R.id.button8 && secondId == R.id.button2) ||
+                (firstId == R.id.button5 && secondId == R.id.button7) ||
+                (firstId == R.id.button7 && secondId == R.id.button5) ||
+                (firstId == R.id.button3 && secondId == R.id.button4) ||
+                (firstId == R.id.button4 && secondId == R.id.button3);
+    }
+
+    private void restartGame() {
+        // Reset the matched pairs count and update the display
+        correct = 0;
+        clickCount = 0;
+        isProcessing = false;
+        textmatches.setText("Matched pairs: " + correct);
+        int[] buttonIds = {R.id.button1, R.id.button2, R.id.button3, R.id.button4,
+                R.id.button5, R.id.button6, R.id.button7, R.id.button8};
+        for (int id : buttonIds) {
+            Button button = findViewById(id);
+            button.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void buttonVisible(Button button) {
+        if (button != null) {
+            button.setVisibility(View.VISIBLE);
+        }
+    }
+}
