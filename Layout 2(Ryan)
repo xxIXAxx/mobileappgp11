@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
+
+    <TextView
+        android:id="@+id/Title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="How many chickens are there?" />
+
+    <ImageView
+        android:id="@+id/chicken1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/Title2"
+        android:layout_toStartOf="@+id/chicken2"
+        android:visibility="visible"
+        app:srcCompat="@drawable/img" />
+
+    <ImageView
+        android:id="@+id/chicken2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/Title2"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/img" />
+
+    <ImageView
+        android:id="@+id/chicken3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/Title2"
+        android:layout_toEndOf="@+id/chicken2"
+        app:srcCompat="@drawable/img" />
+    <ImageView
+        android:id="@+id/chicken4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/chicken1"
+        android:layout_toStartOf="@+id/chicken5"
+        app:srcCompat="@drawable/img" />
+    <ImageView
+        android:id="@+id/chicken5"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/chicken1"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/img" />
+    <ImageView
+        android:id="@+id/chicken6"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/chicken1"
+        android:layout_toEndOf="@+id/chicken5"
+        app:srcCompat="@drawable/img" />
+    <ImageView
+        android:id="@+id/dupe1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/chicken1"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/img" />
+    <ImageView
+        android:id="@+id/dupe2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/Title2"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/img" />
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:text="Answer" />
+
+    <Button
+        android:id="@+id/enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/editTextText"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:text="Enter" />
+</RelativeLayout>
