@@ -1,0 +1,166 @@
+package com.example.realnewgp;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Rect;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+
+    private ImageView draggableImage, targetImage,targetImage2,nika,draggableImage2;
+    private float dX, dY;
+    private float originalX, originalY;
+    TextView hpcounter,kaidohp;
+    private int hp=100,hp2 =100, counter = 0;
+
+   // @SuppressLint({"ClickableViewAccessibility", "MissingInflatedId"})
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        hpcounter = findViewById(R.id.luffyhp);
+        kaidohp = findViewById(R.id.kaidohp);
+        draggableImage = findViewById(R.id.kaidoweapon);
+        targetImage = findViewById(R.id.luffy);
+        targetImage2 = findViewById(R.id.kaido);
+        nika = findViewById(R.id.nika);
+        draggableImage2 = findViewById(R.id.luffyfist);
+        Button btn1 = (Button) findViewById(R.id.button);
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this,MainActivity2.class);
+                startActivity(i);
+            }
+        });
+
+        draggableImage.post(() -> {
+            originalX = draggableImage.getX();
+            originalY = draggableImage.getY();
+        });
+
+        draggableImage2.post(() -> {
+            originalX = draggableImage.getX();
+            originalY = draggableImage.getY();
+        });
+
+        draggableImage.setOnTouchListener((v, event) -> {
+            switch (event.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
+                    dX = v.getX() - event.getRawX();
+                    dY = v.getY() - event.getRawY();
+                    return true;
+
+                case MotionEvent.ACTION_MOVE:
+                    v.animate()
+                            .x(event.getRawX() + dX)
+                            .y(event.getRawY() + dY)
+                            .setDuration(0)
+                            .start();
+                    return true;
+
+                case MotionEvent.ACTION_UP:
+                    if (isViewOverlapping(draggableImage, targetImage)) {
+                        hp-=50;
+                        hpcounter.setText("HP: " + hp +"%");
+                        if (hp == 0){
+                            hp = 100;
+                            targetImage.setVisibility(View.INVISIBLE);
+                            nika.setVisibility(View.VISIBLE);
+                            draggableImage2.setVisibility(View.VISIBLE);
+                            draggableImage.setVisibility(View.INVISIBLE);
+                            hpcounter.setText("HP: " + hp+"%");
+                        }
+
+                    }
+                    else if (isViewOverlapping(draggableImage,targetImage2)){
+                        Toast.makeText(this,"How dare you use his own magic against him?",Toast.LENGTH_LONG).show();
+                    }
+
+                    // Animate back to original position
+                    v.animate()
+                            .x(originalX)
+                            .y(originalY)
+                            .setDuration(300)
+                            .start();
+
+                    return true;
+            }
+            return false;
+        });
+
+
+        draggableImage2.setOnTouchListener((v, event) -> {
+            switch (event.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
+                    dX = v.getX() - event.getRawX();
+                    dY = v.getY() - event.getRawY();
+                    return true;
+
+                case MotionEvent.ACTION_MOVE:
+                    v.animate()
+                            .x(event.getRawX() + dX)
+                            .y(event.getRawY() + dY)
+                            .setDuration(0)
+                            .start();
+                    return true;
+
+                case MotionEvent.ACTION_UP:
+                    if (isViewOverlapping(draggableImage2, targetImage2)) {
+                        hp2-=50;
+                        kaidohp.setText("HP: " + hp2 +"%");
+                        if (hp2==0){
+                            Toast.makeText(this,"Congragulations",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else if (isViewOverlapping(draggableImage2,targetImage)){
+                        Toast.makeText(this,"How dare you use his own magic against him?",Toast.LENGTH_LONG).show();
+                    }
+
+                    // Animate back to original position
+                    v.animate()
+                            .x(originalX)
+                            .y(originalY)
+                            .setDuration(300)
+                            .start();
+
+                    return true;
+            }
+            return false;
+        });
+
+
+
+    }
+
+
+    private boolean isViewOverlapping(View view1, View view2) {
+        int[] pos1 = new int[2];
+        int[] pos2 = new int[2];
+
+        view1.getLocationOnScreen(pos1);
+        view2.getLocationOnScreen(pos2);
+
+        Rect rect1 = new Rect(pos1[0], pos1[1],
+                pos1[0] + view1.getWidth(), pos1[1] + view1.getHeight());
+
+        Rect rect2 = new Rect(pos2[0], pos2[1],
+                pos2[0] + view2.getWidth(), pos2[1] + view2.getHeight());
+
+        return Rect.intersects(rect1, rect2);
+    }
+
+}
