@@ -1,0 +1,142 @@
+package com.example.realnewgp;
+
+import android.app.Activity;
+import android.graphics.Rect;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.view.MotionEvent;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import android.widget.RelativeLayout;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+public class MainActivity2 extends AppCompatActivity {
+
+
+    Button enterbutton;
+    private float deltaX;
+    private float deltaY;
+    ViewGroup rootView;
+    ImageView dupe1, dupe2;
+    ImageView[] unmovable;
+    EditText answerEditText;
+    int correctAnswer = 8;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+        dupe1 = findViewById(R.id.dupe1);
+        dupe2 = findViewById(R.id.dupe2);
+        rootView = findViewById(R.id.main);
+        unmovable = new ImageView[]{
+                findViewById(R.id.chicken1),
+                findViewById(R.id.chicken2),
+                findViewById(R.id.chicken3),
+                findViewById(R.id.chicken4),
+                findViewById(R.id.chicken5),
+                findViewById(R.id.chicken6)
+        };
+        setupTouchListener(dupe1);
+        setupTouchListener(dupe2);
+        Button enterbutton = findViewById(R.id.enter);
+        enterbutton.setOnClickListener(v -> checkAnswer());
+
+
+    }
+    private void setupTouchListener(ImageView imageView) {
+        imageView.setOnTouchListener((v, event) -> {
+            switch(event.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
+                    deltaX = v.getX() - event.getRawX();
+                    deltaY = v.getY() - event.getRawY();
+                    return true;
+
+                case MotionEvent.ACTION_MOVE:
+                    v.animate()
+                            .x(event.getRawX() + deltaX)
+                            .y(event.getRawY() + deltaY)
+                            .setDuration(0)
+                            .start();
+                    return true;
+
+                case MotionEvent.ACTION_UP:
+                    checkOverlapping();
+                    return true;
+            }
+            return true;
+        });
+    }
+
+
+    private void checkOverlapping() {
+        boolean isOverlapping = false;
+
+        for (ImageView unmovableImage : unmovable) {
+            if (isViewOverlapping(dupe1, unmovableImage) || isViewOverlapping(dupe2, unmovableImage)) {
+                isOverlapping = true;
+                break;
+            }
+        }
+
+        if (isOverlapping) {
+            Toast.makeText(this, "Overlapping detected! Input will be invalid.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void checkAnswer() {
+        boolean isOverlapping = false;
+
+        for (ImageView unmovableImage : unmovable) {
+            if (isViewOverlapping(dupe1, unmovableImage) || isViewOverlapping(dupe2, unmovableImage)) {
+                isOverlapping = true;
+                break;
+            }
+        }
+
+        if (isOverlapping) {
+            Toast.makeText(this, "Input is incorrect due to overlapping!", Toast.LENGTH_SHORT).show();
+        } else {
+            String userInput = answerEditText.getText().toString();
+            try {
+                int userAnswer = Integer.parseInt(userInput); // Convert input to int
+                if (userAnswer == correctAnswer) {
+                    Toast.makeText(this, "Correct answer!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Incorrect answer!", Toast.LENGTH_SHORT).show();
+                }
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Please enter a valid number!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private boolean isViewOverlapping(View view1, View view2) {
+        int[] pos1 = new int[2];
+        int[] pos2 = new int[2];
+
+        view1.getLocationOnScreen(pos1);
+        view2.getLocationOnScreen(pos2);
+
+        Rect rect1 = new Rect(pos1[0], pos1[1],
+                pos1[0] + view1.getWidth(), pos1[1] + view1.getHeight());
+
+        Rect rect2 = new Rect(pos2[0], pos2[1],
+                pos2[0] + view2.getWidth(), pos2[1] + view2.getHeight());
+
+        return Rect.intersects(rect1, rect2);
+    }
+}
+
+
+
+
+
+
+
