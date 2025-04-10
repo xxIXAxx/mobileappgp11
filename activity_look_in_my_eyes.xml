@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/kitchen">
+
+
+    <ImageView
+        android:id="@+id/defaultface"
+        android:layout_width="207dp"
+        android:layout_height="194dp"
+        android:layout_marginTop="350dp"
+        app:srcCompat="@drawable/defaultface" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Make little Ming happy!"
+        android:textColor="@color/black"
+        android:textSize="35dp" />
+
+    <ImageView
+        android:id="@+id/grapes"
+        android:layout_width="116dp"
+        android:layout_height="143dp"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="280dp"
+        app:srcCompat="@drawable/grapes" />
+
+    <ImageView
+        android:id="@+id/dad"
+        android:layout_width="215dp"
+        android:layout_height="497dp"
+        android:layout_marginLeft="-11dp"
+        android:layout_marginTop="150dp"
+        android:layout_toRightOf="@id/defaultface"
+        app:srcCompat="@drawable/dad2" />
+
+    <ImageView
+        android:id="@+id/rat"
+        android:layout_width="156dp"
+        android:layout_height="211dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="490dp"
+        android:layout_toEndOf="@+id/croc"
+        app:srcCompat="@drawable/rat" />
+
+    <ImageView
+        android:id="@+id/croc"
+        android:layout_width="151dp"
+        android:layout_height="156dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="500dp"
+        app:srcCompat="@drawable/croc" />
+
+    <ImageView
+        android:id="@+id/tick2"
+        android:layout_width="215dp"
+        android:layout_height="222dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:visibility="gone"
+        android:src="@drawable/tick2" />
+
+
+</RelativeLayout>

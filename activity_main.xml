@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pitch"
+    tools:context=".Goat">
+
+
+    <ImageView
+        android:id="@+id/ball"
+        android:layout_width="95dp"
+        android:layout_height="92dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="470dp"
+        android:background="@drawable/bal"
+        android:src="@drawable/bal" />
+
+    <ImageView
+        android:id="@+id/antony"
+        android:layout_width="85dp"
+        android:layout_height="160dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="70dp"
+        android:visibility="invisible"
+        android:src="@drawable/goat" />
+
+    <ImageView
+        android:id="@+id/pessi"
+        android:layout_width="166dp"
+        android:layout_height="182dp"
+        android:layout_marginTop="560dp"
+        android:background="@drawable/messi1"
+        android:text="Button" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:text="Who is the GOAT?"
+        android:textColor="@color/black"
+        android:textSize="50dp" />
+
+    <ImageView
+        android:id="@+id/ronaldo"
+        android:layout_width="128dp"
+        android:layout_height="202dp"
+        android:layout_marginTop="300dp"
+        android:background="@drawable/ronaldo1"
+        android:text="Button" />
+
+    <ImageView
+        android:id="@+id/tick"
+        android:layout_width="85dp"
+        android:layout_height="160dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="70dp"
+        android:visibility="invisible"
+        android:src="@drawable/tick" />
+
+    <Button
+        android:id="@+id/Next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/next"
+        android:visibility="visible" />
+
+
+</RelativeLayout>
