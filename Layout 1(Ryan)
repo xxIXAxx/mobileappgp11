@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Help Luffy to defeat Kaido"
+        android:textSize="30dp"
+        android:layout_marginTop="50dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/luffyhp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/luffy"
+        android:layout_centerHorizontal="true"
+        android:text="HP:100%" />
+
+    <ImageView
+        android:id="@+id/kaido"
+        android:layout_width="170dp"
+        android:layout_height="230dp"
+        android:layout_below="@+id/Title"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/kaido" />
+
+    <ImageView
+        android:id="@+id/nika"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:layout_alignTop="@+id/luffy"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/niggaguffy" />
+
+    <ImageView
+        android:id="@+id/luffy"
+        android:layout_width="170dp"
+        android:layout_height="230dp"
+        android:layout_below="@+id/kaidoweapon"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/luffy" />
+
+    <ImageView
+        android:id="@+id/kaidoweapon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/kaido"
+        app:srcCompat="@drawable/wolfstick" />
+
+    <ImageView
+        android:id="@+id/luffyfist"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/kaido"
+        android:visibility="gone"
+        app:srcCompat="@drawable/luffy_fist" />
+
+    <TextView
+        android:id="@+id/kaidohp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/kaido"
+        android:layout_centerHorizontal="true"
+        android:text="HP:100%" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/luffyhp"
+        android:layout_alignParentEnd="true"
+        android:text="Next" />
+
+
+</RelativeLayout>
