@@ -27,10 +27,12 @@ public class IXAstage1 extends AppCompatActivity {
                 restartGame();
             }
         });
+
         findViewById(R.id.gomenu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(IXAstage1.this, IXAstage2.class);
+                //reserve for go mainmenu
+                Intent intent = new Intent(IXAstage1.this, IXAstage2.class);//reserve for go mainmenu
                 startActivity(intent);
             }
         });
@@ -97,14 +99,10 @@ public class IXAstage1 extends AppCompatActivity {
     }
 
     private boolean isMatchingPair(int firstId, int secondId) {
-        return (firstId == R.id.button1 && secondId == R.id.button6) ||
-                (firstId == R.id.button6 && secondId == R.id.button1) ||
-                (firstId == R.id.button2 && secondId == R.id.button8) ||
-                (firstId == R.id.button8 && secondId == R.id.button2) ||
-                (firstId == R.id.button5 && secondId == R.id.button7) ||
-                (firstId == R.id.button7 && secondId == R.id.button5) ||
-                (firstId == R.id.button3 && secondId == R.id.button4) ||
-                (firstId == R.id.button4 && secondId == R.id.button3);
+        return (firstId == R.id.button1 && secondId == R.id.button6) || (firstId == R.id.button6 && secondId == R.id.button1) ||
+                (firstId == R.id.button2 && secondId == R.id.button8) || (firstId == R.id.button8 && secondId == R.id.button2) ||
+                (firstId == R.id.button5 && secondId == R.id.button7) || (firstId == R.id.button7 && secondId == R.id.button5) ||
+                (firstId == R.id.button3 && secondId == R.id.button4) || (firstId == R.id.button4 && secondId == R.id.button3);
     }
 
     private void restartGame() {
