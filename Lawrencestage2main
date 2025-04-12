@@ -97,7 +97,6 @@ public class IXAstage2 extends AppCompatActivity {
     }
 
     private void restartGame() {
-        // Reset the matched pairs count and update the display
         correct = 0;
         clickCount = 0;
         isProcessing = false;
