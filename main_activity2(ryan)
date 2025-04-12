@@ -49,7 +49,7 @@ public class MainActivity2 extends AppCompatActivity {
         Button enterbutton = findViewById(R.id.enter);
         enterbutton.setOnClickListener(v -> checkAnswer());
 
-
+        answerEditText = findViewById(R.id.editTextText);
     }
     private void setupTouchListener(ImageView imageView) {
         imageView.setOnTouchListener((v, event) -> {
