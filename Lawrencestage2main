@@ -1,16 +1,17 @@
 package com.polyu.gppro;
 
+import android.content.Intent;
+
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 import android.widget.TextView;
 
 public class IXAstage2 extends AppCompatActivity {
     private int clickCount, correct = 0;
-    private TextView textmatches;
+    private TextView countmatches, Ismatches;
     private Button firstButton, secondButton = null;
     private boolean isProcessing = false;
 
@@ -18,11 +19,19 @@ public class IXAstage2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textmatches = findViewById(R.id.matches);
+        countmatches = findViewById(R.id.matches);
         findViewById(R.id.restart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 restartGame();
+            }
+        });
+
+        findViewById(R.id.gomenu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(IXAstage2.this, IXAstage1.class);
+                startActivity(intent);
             }
         });
 
@@ -54,22 +63,21 @@ public class IXAstage2 extends AppCompatActivity {
                         new Handler().postDelayed(() -> {
                             secondButton = button;
                             if (isMatchingPair(firstButton.getId(), button.getId())) {
-                                Toast.makeText(IXAstage2.this, "Match Found!", Toast.LENGTH_SHORT).show();
+                                Ismatches.setText("Correct pairs");
                                 correct++;
-                                textmatches.setText("Matched pairs: " + correct);
+                                countmatches.setText("Matched pairs: " + correct);
                                 if (correct == 4) {
-                                    Toast.makeText(IXAstage2.this, "You win!", Toast.LENGTH_SHORT).show();
+                                    Ismatches.setText("You win");
                                 }
                             } else {
-                                Toast.makeText(IXAstage2.this, "No Match! Try Again.", Toast.LENGTH_SHORT).show();
-                                buttonVisible(firstButton);
+                                Ismatches.setText("Wrong pairs");                                buttonVisible(firstButton);
                                 buttonVisible(secondButton);
                             }
                             clickCount = 0;
                             firstButton = null;
                             secondButton = null;
                             isProcessing = false;
-                        }, 400);
+                        }, 300);
                     }
                 }
             });
@@ -100,7 +108,8 @@ public class IXAstage2 extends AppCompatActivity {
         correct = 0;
         clickCount = 0;
         isProcessing = false;
-        textmatches.setText("Matched pairs: " + correct);
+        countmatches.setText("Matched pairs: " + correct);
+        Ismatches.setText("");
         int[] buttonIds = {R.id.button1, R.id.button2, R.id.button3, R.id.button4,
                 R.id.button5, R.id.button6, R.id.button7, R.id.button8};
         for (int id : buttonIds) {
