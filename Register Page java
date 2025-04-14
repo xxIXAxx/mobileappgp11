@@ -43,6 +43,21 @@ public class Creation extends AppCompatActivity {
             return;
         }
 
+        if (!isValidPassword(password)) {
+            Toast.makeText(this, "Password must contain at least one uppercase and lowercase letter, one number, and be at least 8 characters long", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (isEmailRegistered(email)) {
+            Toast.makeText(this, "This email address is already registered", Toast.LENGTH_SHORT).show();
+            onBackPressed();
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+            return;
+        }
         // Save user information in SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("UserAccountPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -55,5 +70,24 @@ public class Creation extends AppCompatActivity {
 
         // Intent back to the login page
         onBackPressed();
+    }
+
+    private boolean isValidPassword(String password) {
+        // Password must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$";
+        return password.matches(regex);
+    }
+
+    private boolean isEmailRegistered(String email) {
+        // Check if the email address is already registered
+        SharedPreferences sharedPreferences = getSharedPreferences("UserAccountPrefs", MODE_PRIVATE);
+        String registeredEmail = sharedPreferences.getString("email", "");
+        return registeredEmail.equals(email);
+    }
+
+    private boolean isValidEmail(String email) {
+        // Email address format validation
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        return email.matches(emailPattern);
     }
 }
